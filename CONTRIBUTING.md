@@ -56,11 +56,11 @@ Create a new file in `src/Guards/`:
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Guards;
+namespace M9nx\RuntimeGuard\Guards;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
-use Mounir\RuntimeGuard\Support\GuardResult;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Support\GuardResult;
 
 /**
  * Detects [description of what this guard detects].
@@ -110,7 +110,7 @@ Add your guard to `config/runtime-guard.php`:
 ```php
 'guards' => [
     'my-new-guard' => [
-        'class' => \Mounir\RuntimeGuard\Guards\MyNewGuard::class,
+        'class' => \M9nx\RuntimeGuard\Guards\MyNewGuard::class,
         'enabled' => true,
         'priority' => 50,
         // Guard-specific options...
@@ -125,8 +125,8 @@ Create tests in `tests/Unit/Guards/MyNewGuardTest.php`:
 ```php
 <?php
 
-use Mounir\RuntimeGuard\Guards\MyNewGuard;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Guards\MyNewGuard;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
 
 test('detects [specific threat]', function () {
     $guard = new MyNewGuard(['enabled' => true]);
@@ -174,10 +174,10 @@ Reporters handle what happens after a threat is detected.
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Reporters;
+namespace M9nx\RuntimeGuard\Reporters;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ReporterInterface;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ReporterInterface;
 
 class MyReporter implements ReporterInterface
 {
@@ -204,7 +204,7 @@ Add to `config/runtime-guard.php`:
 ```php
 'reporters' => [
     'my-reporter' => [
-        'class' => \Mounir\RuntimeGuard\Reporters\MyReporter::class,
+        'class' => \M9nx\RuntimeGuard\Reporters\MyReporter::class,
         'enabled' => true,
         // Reporter-specific config...
     ],

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Console\Commands;
+namespace M9nx\RuntimeGuard\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Performance;
+namespace M9nx\RuntimeGuard\Performance;
 
-use Mounir\RuntimeGuard\Contracts\GuardInterface;
+use M9nx\RuntimeGuard\Contracts\GuardInterface;
 use Illuminate\Contracts\Container\Container;
 
 /**
@@ -253,7 +253,7 @@ class LazyGuardProxy implements GuardInterface
         return $this->name;
     }
 
-    public function inspect(mixed $input, array $context = []): \Mounir\RuntimeGuard\Contracts\GuardResultInterface
+    public function inspect(mixed $input, array $context = []): \M9nx\RuntimeGuard\Contracts\GuardResultInterface
     {
         return $this->getGuard()->inspect($input, $context);
     }

@@ -219,32 +219,32 @@ return [
     'guards' => [
 
         'sql-injection' => [
-            'class' => \Mounir\RuntimeGuard\Guards\SqlInjectionGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\SqlInjectionGuard::class,
             'enabled' => true,
             'priority' => 100,
             'patterns' => [],  // Additional patterns to check
         ],
 
         'xss' => [
-            'class' => \Mounir\RuntimeGuard\Guards\XssGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\XssGuard::class,
             'enabled' => true,
             'priority' => 90,
         ],
 
         'command-injection' => [
-            'class' => \Mounir\RuntimeGuard\Guards\CommandInjectionGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\CommandInjectionGuard::class,
             'enabled' => true,
             'priority' => 95,
         ],
 
         'file-operation' => [
-            'class' => \Mounir\RuntimeGuard\Guards\FileOperationGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\FileOperationGuard::class,
             'enabled' => true,
             'priority' => 85,
         ],
 
         'ssrf' => [
-            'class' => \Mounir\RuntimeGuard\Guards\SsrfGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\SsrfGuard::class,
             'enabled' => true,
             'priority' => 80,
             'blocked_hosts' => [],      // Additional hosts to block
@@ -254,7 +254,7 @@ return [
         ],
 
         'mass-assignment' => [
-            'class' => \Mounir\RuntimeGuard\Guards\MassAssignmentGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\MassAssignmentGuard::class,
             'enabled' => true,
             'priority' => 75,
             'dangerous_fields' => [],    // Additional fields to flag
@@ -262,7 +262,7 @@ return [
         ],
 
         'deserialization' => [
-            'class' => \Mounir\RuntimeGuard\Guards\DeserializationGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\DeserializationGuard::class,
             'enabled' => true,
             'priority' => 92,
             'block_phar' => true,
@@ -270,13 +270,13 @@ return [
         ],
 
         'nosql-injection' => [
-            'class' => \Mounir\RuntimeGuard\Guards\NoSqlInjectionGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\NoSqlInjectionGuard::class,
             'enabled' => true,
             'priority' => 88,
         ],
 
         'graphql' => [
-            'class' => \Mounir\RuntimeGuard\Guards\GraphQLGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\GraphQLGuard::class,
             'enabled' => false, // Enable if using GraphQL
             'priority' => 70,
             'max_depth' => 10,
@@ -287,7 +287,7 @@ return [
         ],
 
         'anomaly' => [
-            'class' => \Mounir\RuntimeGuard\Guards\AnomalyGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\AnomalyGuard::class,
             'enabled' => false, // Enable after baseline is established
             'priority' => 50,
             'learning_mode' => true,  // Start in learning mode
@@ -306,7 +306,7 @@ return [
         */
 
         'credential-stuffing' => [
-            'class' => \Mounir\RuntimeGuard\Guards\CredentialStuffingGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\CredentialStuffingGuard::class,
             'enabled' => true,
             'priority' => 93,
             'ip_velocity_threshold' => 10,        // Max attempts per IP/window
@@ -318,7 +318,7 @@ return [
         ],
 
         'session-integrity' => [
-            'class' => \Mounir\RuntimeGuard\Guards\SessionIntegrityGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\SessionIntegrityGuard::class,
             'enabled' => true,
             'priority' => 91,
             'fingerprint_fields' => ['User-Agent', 'Accept-Language'],
@@ -329,7 +329,7 @@ return [
         ],
 
         'jwt' => [
-            'class' => \Mounir\RuntimeGuard\Guards\JwtGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\JwtGuard::class,
             'enabled' => false, // Enable if using JWT
             'priority' => 89,
             'allowed_algorithms' => ['RS256', 'RS384', 'RS512', 'ES256'],
@@ -343,7 +343,7 @@ return [
         ],
 
         'bot-behavior' => [
-            'class' => \Mounir\RuntimeGuard\Guards\BotBehaviorGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\BotBehaviorGuard::class,
             'enabled' => true,
             'priority' => 60,
             'request_timing_threshold' => 0.1,    // 100ms
@@ -356,7 +356,7 @@ return [
         ],
 
         'request-signature' => [
-            'class' => \Mounir\RuntimeGuard\Guards\RequestSignatureGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\RequestSignatureGuard::class,
             'enabled' => false, // Enable for API signature validation
             'priority' => 98,
             'signature_header' => 'X-Signature',
@@ -372,7 +372,7 @@ return [
         ],
 
         'timing-shield' => [
-            'class' => \Mounir\RuntimeGuard\Guards\TimingShieldGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\TimingShieldGuard::class,
             'enabled' => true,
             'priority' => 99,
             'add_response_jitter' => true,
@@ -399,7 +399,7 @@ return [
         */
 
         'behavioral-fingerprint' => [
-            'class' => \Mounir\RuntimeGuard\Guards\BehavioralFingerprintGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\BehavioralFingerprintGuard::class,
             'enabled' => true,
             'priority' => 65,
             'features' => ['timing', 'navigation', 'interaction', 'mouse', 'keyboard'],
@@ -409,7 +409,7 @@ return [
         ],
 
         'payload-obfuscation' => [
-            'class' => \Mounir\RuntimeGuard\Guards\PayloadObfuscationGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\PayloadObfuscationGuard::class,
             'enabled' => true,
             'priority' => 87,
             'detect_base64' => true,
@@ -421,7 +421,7 @@ return [
         ],
 
         'api-abuse' => [
-            'class' => \Mounir\RuntimeGuard\Guards\ApiAbuseGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\ApiAbuseGuard::class,
             'enabled' => true,
             'priority' => 72,
             'rate_limits' => [
@@ -435,7 +435,7 @@ return [
         ],
 
         'prototype-pollution' => [
-            'class' => \Mounir\RuntimeGuard\Guards\PrototypePollutionGuard::class,
+            'class' => \M9nx\RuntimeGuard\Guards\PrototypePollutionGuard::class,
             'enabled' => true,
             'priority' => 86,
             'blocked_keys' => ['__proto__', 'constructor', 'prototype'],

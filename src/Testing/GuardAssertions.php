@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Testing;
+namespace M9nx\RuntimeGuard\Testing;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
 use PHPUnit\Framework\Assert;
 
 /**

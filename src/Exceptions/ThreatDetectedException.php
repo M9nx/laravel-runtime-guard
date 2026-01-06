@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Exceptions;
+namespace M9nx\RuntimeGuard\Exceptions;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
 
 /**
  * Exception thrown when a security threat is detected and blocking is enabled.

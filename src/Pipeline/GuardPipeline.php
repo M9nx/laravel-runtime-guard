@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Pipeline;
+namespace M9nx\RuntimeGuard\Pipeline;
 
-use Mounir\RuntimeGuard\Contracts\ContextAwareGuard;
-use Mounir\RuntimeGuard\Contracts\GuardInterface;
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\PipelineStrategy;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
-use Mounir\RuntimeGuard\Contracts\TieredGuard;
-use Mounir\RuntimeGuard\Support\GuardResult;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Contracts\ContextAwareGuard;
+use M9nx\RuntimeGuard\Contracts\GuardInterface;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\PipelineStrategy;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Contracts\TieredGuard;
+use M9nx\RuntimeGuard\Support\GuardResult;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 
 /**
  * Executes guards according to configured pipeline strategy.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Notifications;
+namespace M9nx\RuntimeGuard\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

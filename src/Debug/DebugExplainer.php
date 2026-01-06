@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Debug;
+namespace M9nx\RuntimeGuard\Debug;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
 
 /**
  * Debug Mode with Detailed Explanations.

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Correlation;
+namespace M9nx\RuntimeGuard\Correlation;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 
 /**
  * Correlates multiple security events to detect coordinated attacks.

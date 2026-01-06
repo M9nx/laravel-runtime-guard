@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Support;
+namespace M9nx\RuntimeGuard\Support;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;

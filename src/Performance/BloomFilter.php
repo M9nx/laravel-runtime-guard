@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Performance;
+namespace M9nx\RuntimeGuard\Performance;
 
 /**
  * Bloom Filter for fast pattern pre-screening.

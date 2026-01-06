@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\MultiTenant;
+namespace M9nx\RuntimeGuard\MultiTenant;
 
 use Illuminate\Support\Facades\Cache;
 

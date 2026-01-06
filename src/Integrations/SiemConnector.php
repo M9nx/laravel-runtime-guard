@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Integrations;
+namespace M9nx\RuntimeGuard\Integrations;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -30,7 +30,7 @@ class SiemConnector
     private ?string $endpoint;
     private array $headers;
     private ?LoggerInterface $logger;
-    private string $vendor = 'Mounir';
+    private string $vendor = 'M9nx';
     private string $product = 'RuntimeGuard';
     private string $version = '3.0';
 
@@ -40,7 +40,7 @@ class SiemConnector
         $this->endpoint = $config['endpoint'] ?? null;
         $this->headers = $config['headers'] ?? [];
         $this->logger = $config['logger'] ?? null;
-        $this->vendor = $config['vendor'] ?? 'Mounir';
+        $this->vendor = $config['vendor'] ?? 'M9nx';
         $this->product = $config['product'] ?? 'RuntimeGuard';
         $this->version = $config['version'] ?? '3.0';
     }

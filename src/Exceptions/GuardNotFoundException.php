@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Exceptions;
+namespace M9nx\RuntimeGuard\Exceptions;
 
 /**
  * Exception thrown when a requested guard is not found.

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Http\Middleware;
+namespace M9nx\RuntimeGuard\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Mounir\RuntimeGuard\Contracts\ResponseMode;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
-use Mounir\RuntimeGuard\Exceptions\ThreatDetectedException;
-use Mounir\RuntimeGuard\GuardManager;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Contracts\ResponseMode;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Exceptions\ThreatDetectedException;
+use M9nx\RuntimeGuard\GuardManager;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -99,7 +99,7 @@ class RuntimeGuardMiddleware
      * Handle inspection failure.
      */
     protected function handleFailure(
-        \Mounir\RuntimeGuard\Pipeline\PipelineResult $result,
+        \M9nx\RuntimeGuard\Pipeline\PipelineResult $result,
         InspectionContext $context,
         Request $request
     ): void {

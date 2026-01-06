@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Events;
+namespace M9nx\RuntimeGuard\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 
 /**
  * Event fired when a threat is detected.

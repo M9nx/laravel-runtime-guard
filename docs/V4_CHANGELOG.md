@@ -115,7 +115,7 @@ All v4.0 features can be configured in `config/runtime-guard.php`:
 ### ML Anomaly Detection
 
 ```php
-use Mounir\RuntimeGuard\ML\MLAnomalyDetector;
+use M9nx\RuntimeGuard\ML\MLAnomalyDetector;
 
 $detector = app(MLAnomalyDetector::class);
 
@@ -132,7 +132,7 @@ if ($result->isAnomaly) {
 ### Multi-Tenant Security
 
 ```php
-use Mounir\RuntimeGuard\MultiTenant\TenantIsolationManager;
+use M9nx\RuntimeGuard\MultiTenant\TenantIsolationManager;
 
 $isolation = app(TenantIsolationManager::class);
 
@@ -146,7 +146,7 @@ $validation = $isolation->validateAccess($context, $resource);
 ### Security Scorecard
 
 ```php
-use Mounir\RuntimeGuard\Observability\SecurityScorecard;
+use M9nx\RuntimeGuard\Observability\SecurityScorecard;
 
 $scorecard = app(SecurityScorecard::class);
 $result = $scorecard->calculate();
@@ -158,7 +158,7 @@ echo "Overall Score: {$result->overallScore}/100";
 ### WAF Rule Export
 
 ```php
-use Mounir\RuntimeGuard\Advanced\WafRuleExporter;
+use M9nx\RuntimeGuard\Advanced\WafRuleExporter;
 
 $exporter = app(WafRuleExporter::class);
 $exporter->addRules($myRules);
@@ -172,7 +172,7 @@ $modSecurity = $exporter->toModSecurity();
 ### Honeytokens
 
 ```php
-use Mounir\RuntimeGuard\Advanced\HoneytokenManager;
+use M9nx\RuntimeGuard\Advanced\HoneytokenManager;
 
 $honeytokens = app(HoneytokenManager::class);
 
@@ -257,6 +257,13 @@ ABUSEIPDB_API_KEY=your-key-here
 ## 📄 License
 
 MIT License - See LICENSE file for details.
+
+---
+
+## 🔗 Links
+
+- **Repository**: [https://github.com/M9nx/laravel-runtime-guard](https://github.com/M9nx/laravel-runtime-guard)
+- **Author**: [M9nx](https://github.com/M9nx)
 
 ---
 

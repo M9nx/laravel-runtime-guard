@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Contracts;
+namespace M9nx\RuntimeGuard\Contracts;
 
 /**
  * Guards that can boot/initialize on service provider boot.

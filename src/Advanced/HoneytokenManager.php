@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Advanced;
+namespace M9nx\RuntimeGuard\Advanced;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;

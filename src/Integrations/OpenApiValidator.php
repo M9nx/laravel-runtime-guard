@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Integrations;
+namespace M9nx\RuntimeGuard\Integrations;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
 
 /**
  * OpenAPI-Aware Request Validator.

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Mounir\RuntimeGuard\Contracts\GuardManagerInterface;
-use Mounir\RuntimeGuard\Facades\RuntimeGuard;
-use Mounir\RuntimeGuard\Guards\SqlInjectionGuard;
-use Mounir\RuntimeGuard\Tests\TestCase;
+use M9nx\RuntimeGuard\Contracts\GuardManagerInterface;
+use M9nx\RuntimeGuard\Facades\RuntimeGuard;
+use M9nx\RuntimeGuard\Guards\SqlInjectionGuard;
+use M9nx\RuntimeGuard\Tests\TestCase;
 
 uses(TestCase::class);
 

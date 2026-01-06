@@ -63,7 +63,7 @@
 Implements the circuit breaker pattern for guards to prevent cascading failures.
 
 ```php
-use Mounir\RuntimeGuard\Resilience\CircuitBreaker;
+use M9nx\RuntimeGuard\Resilience\CircuitBreaker;
 
 $breaker = app(CircuitBreaker::class);
 
@@ -92,7 +92,7 @@ $breaker->getState('guard-name'); // 'closed', 'open', 'half_open'
 Adaptive load shedding based on system resources with tiered guard priorities.
 
 ```php
-use Mounir\RuntimeGuard\Resilience\LoadShedder;
+use M9nx\RuntimeGuard\Resilience\LoadShedder;
 
 $shedder = app(LoadShedder::class);
 
@@ -128,7 +128,7 @@ $health = $shedder->getSystemHealth();
 Fast probabilistic pre-screening for known attack patterns.
 
 ```php
-use Mounir\RuntimeGuard\Performance\BloomFilter;
+use M9nx\RuntimeGuard\Performance\BloomFilter;
 
 $filter = app(BloomFilter::class);
 $filter->add("known-attack-pattern");
@@ -143,7 +143,7 @@ if ($filter->mightContain($input)) {
 Memoized request fingerprinting for deduplication.
 
 ```php
-use Mounir\RuntimeGuard\Support\RequestFingerprint;
+use M9nx\RuntimeGuard\Support\RequestFingerprint;
 
 $fp = app(RequestFingerprint::class);
 $hash = $fp->compute($request);
@@ -157,7 +157,7 @@ $fp->get($request); // Returns existing or computes
 Zero-allocation circular buffer for high-frequency event storage.
 
 ```php
-use Mounir\RuntimeGuard\Support\RingBuffer;
+use M9nx\RuntimeGuard\Support\RingBuffer;
 
 $buffer = new RingBuffer(1000);
 $buffer->push(['event' => 'threat', 'time' => now()]);
@@ -183,7 +183,7 @@ $last10 = $buffer->slice(-10);
 Dynamic risk scoring with adaptive thresholds.
 
 ```php
-use Mounir\RuntimeGuard\Analytics\RiskScoringEngine;
+use M9nx\RuntimeGuard\Analytics\RiskScoringEngine;
 
 $engine = app(RiskScoringEngine::class);
 
@@ -204,7 +204,7 @@ $score->factors;      // ['current_violation' => 20, ...]
 Reconstructs multi-stage attack patterns.
 
 ```php
-use Mounir\RuntimeGuard\Analytics\AttackChainReconstructor;
+use M9nx\RuntimeGuard\Analytics\AttackChainReconstructor;
 
 $reconstructor = app(AttackChainReconstructor::class);
 $reconstructor->recordEvent($event);
@@ -235,7 +235,7 @@ $chains = $reconstructor->getChains('192.168.1.1');
 Multi-endpoint webhook notifications with batching.
 
 ```php
-use Mounir\RuntimeGuard\Notifications\WebhookDispatcher;
+use M9nx\RuntimeGuard\Notifications\WebhookDispatcher;
 
 $dispatcher = app(WebhookDispatcher::class);
 
@@ -275,7 +275,7 @@ $dispatcher->dispatch([
 Enterprise SIEM integration with multiple formats.
 
 ```php
-use Mounir\RuntimeGuard\Integrations\SiemConnector;
+use M9nx\RuntimeGuard\Integrations\SiemConnector;
 
 $siem = app(SiemConnector::class);
 $siem->send($event);
@@ -304,7 +304,7 @@ $siem->send($event);
 Extensible guard system with auto-discovery.
 
 ```php
-use Mounir\RuntimeGuard\Plugins\PluginManager;
+use M9nx\RuntimeGuard\Plugins\PluginManager;
 
 $plugins = app(PluginManager::class);
 
@@ -371,7 +371,7 @@ php artisan runtime-guard:audit --min-severity=high
 ### Installation
 
 ```bash
-composer require mounir/laravel-runtime-guard
+composer require m9nx/laravel-runtime-guard
 php artisan vendor:publish --tag=runtime-guard-config
 ```
 
@@ -384,7 +384,7 @@ Route::middleware('runtime-guard')->group(function () {
 });
 
 // Manual inspection
-use Mounir\RuntimeGuard\GuardManager;
+use M9nx\RuntimeGuard\GuardManager;
 
 $manager = app(GuardManager::class);
 $result = $manager->inspect($userInput);
@@ -461,7 +461,7 @@ None. v3.0 is fully backward compatible with v2.0.
 
 ### Migration Guide
 
-1. Update composer: `composer update mounir/laravel-runtime-guard`
+1. Update composer: `composer update m9nx/laravel-runtime-guard`
 2. Publish new config: `php artisan vendor:publish --tag=runtime-guard-config --force`
 3. Review new guard configurations in `config/runtime-guard.php`
 4. Enable desired v3.0 features
@@ -470,6 +470,6 @@ None. v3.0 is fully backward compatible with v2.0.
 
 ## Support
 
-- **Documentation**: [GitHub Wiki](https://github.com/mounir/laravel-runtime-guard/wiki)
-- **Issues**: [GitHub Issues](https://github.com/mounir/laravel-runtime-guard/issues)
+- **Documentation**: [GitHub Wiki](https://github.com/m9nx/laravel-runtime-guard/wiki)
+- **Issues**: [GitHub Issues](https://github.com/m9nx/laravel-runtime-guard/issues)
 - **Security**: security@example.com

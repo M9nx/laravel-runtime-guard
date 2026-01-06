@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Traits;
+namespace M9nx\RuntimeGuard\Traits;
 
 use Illuminate\Http\Request;
-use Mounir\RuntimeGuard\Contracts\GuardManagerInterface;
-use Mounir\RuntimeGuard\Contracts\ResponseMode;
-use Mounir\RuntimeGuard\Exceptions\ThreatDetectedException;
-use Mounir\RuntimeGuard\Pipeline\PipelineResult;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Contracts\GuardManagerInterface;
+use M9nx\RuntimeGuard\Contracts\ResponseMode;
+use M9nx\RuntimeGuard\Exceptions\ThreatDetectedException;
+use M9nx\RuntimeGuard\Pipeline\PipelineResult;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 
 /**
  * Trait for easy guard inspection in controllers.

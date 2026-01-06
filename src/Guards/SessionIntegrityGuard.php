@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Guards;
+namespace M9nx\RuntimeGuard\Guards;
 
-use Mounir\RuntimeGuard\Contracts\ContextAwareGuard;
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
-use Mounir\RuntimeGuard\Support\GuardResult;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Contracts\ContextAwareGuard;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Support\GuardResult;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 use Psr\SimpleCache\CacheInterface;
 
 /**

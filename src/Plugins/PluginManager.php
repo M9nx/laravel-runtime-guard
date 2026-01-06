@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Plugins;
+namespace M9nx\RuntimeGuard\Plugins;
 
 use Illuminate\Support\Facades\File;
-use Mounir\RuntimeGuard\Contracts\GuardInterface;
+use M9nx\RuntimeGuard\Contracts\GuardInterface;
 
 /**
  * Guard plugin manager for loading external guards.

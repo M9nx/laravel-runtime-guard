@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Contracts;
+namespace M9nx\RuntimeGuard\Contracts;
 
 /**
  * Enum representing the severity level of a detected threat.

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Tests;
+namespace M9nx\RuntimeGuard\Tests;
 
-use Mounir\RuntimeGuard\RuntimeGuardServiceProvider;
+use M9nx\RuntimeGuard\RuntimeGuardServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
@@ -19,7 +19,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageAliases($app): array
     {
         return [
-            'RuntimeGuard' => \Mounir\RuntimeGuard\Facades\RuntimeGuard::class,
+            'RuntimeGuard' => \M9nx\RuntimeGuard\Facades\RuntimeGuard::class,
         ];
     }
 

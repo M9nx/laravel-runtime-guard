@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Contracts;
+namespace M9nx\RuntimeGuard\Contracts;
 
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 
 /**
  * Guards that implement tiered/two-phase inspection.

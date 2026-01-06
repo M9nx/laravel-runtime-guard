@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Support;
+namespace M9nx\RuntimeGuard\Support;
 
 /**
  * Decides whether to inspect a request based on sampling configuration.

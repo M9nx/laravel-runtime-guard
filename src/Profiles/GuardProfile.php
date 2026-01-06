@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Profiles;
+namespace M9nx\RuntimeGuard\Profiles;
 
-use Mounir\RuntimeGuard\Contracts\ResponseMode;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Contracts\ResponseMode;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
 
 /**
  * Represents a guard configuration profile.

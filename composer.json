@@ -1,5 +1,5 @@
 {
-    "name": "mounir/laravel-runtime-guard",
+    "name": "m9nx/laravel-runtime-guard",
     "description": "A security-focused runtime monitoring and guard layer for Laravel applications",
     "keywords": [
         "laravel",
@@ -11,12 +11,12 @@
         "xss",
         "protection"
     ],
-    "homepage": "https://github.com/mounir/laravel-runtime-guard",
+    "homepage": "https://github.com/m9nx/laravel-runtime-guard",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": "Mounir",
+            "name": "M9nx",
             "role": "Developer"
         }
     ],
@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mounir\\RuntimeGuard\\": "src/"
+            "M9nx\\RuntimeGuard\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mounir\\RuntimeGuard\\Tests\\": "tests/"
+            "M9nx\\RuntimeGuard\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -55,10 +55,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mounir\\RuntimeGuard\\RuntimeGuardServiceProvider"
+                "M9nx\\RuntimeGuard\\RuntimeGuardServiceProvider"
             ],
             "aliases": {
-                "RuntimeGuard": "Mounir\\RuntimeGuard\\Facades\\RuntimeGuard"
+                "RuntimeGuard": "M9nx\\RuntimeGuard\\Facades\\RuntimeGuard"
             }
         }
     },

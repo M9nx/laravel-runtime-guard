@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Guards;
+namespace M9nx\RuntimeGuard\Guards;
 
-use Mounir\RuntimeGuard\Contracts\GuardInterface;
-use Mounir\RuntimeGuard\Context\RuntimeContext;
-use Mounir\RuntimeGuard\Results\GuardResult;
+use M9nx\RuntimeGuard\Contracts\GuardInterface;
+use M9nx\RuntimeGuard\Context\RuntimeContext;
+use M9nx\RuntimeGuard\Results\GuardResult;
 
 /**
  * JWT/Token Abuse Guard.

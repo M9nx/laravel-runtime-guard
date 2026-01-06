@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Resilience;
+namespace M9nx\RuntimeGuard\Resilience;
 
 use Psr\SimpleCache\CacheInterface;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\ML;
+namespace M9nx\RuntimeGuard\ML;
 
-use Mounir\RuntimeGuard\Support\RingBuffer;
+use M9nx\RuntimeGuard\Support\RingBuffer;
 use Illuminate\Support\Facades\Cache;
 
 /**

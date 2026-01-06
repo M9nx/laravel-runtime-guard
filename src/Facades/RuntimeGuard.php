@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Facades;
+namespace M9nx\RuntimeGuard\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Mounir\RuntimeGuard\Contracts\GuardInterface;
-use Mounir\RuntimeGuard\Contracts\GuardManagerInterface;
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Pipeline\PipelineResult;
-use Mounir\RuntimeGuard\Support\InspectionContext;
-use Mounir\RuntimeGuard\Testing\RuntimeGuardFake;
+use M9nx\RuntimeGuard\Contracts\GuardInterface;
+use M9nx\RuntimeGuard\Contracts\GuardManagerInterface;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Pipeline\PipelineResult;
+use M9nx\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Testing\RuntimeGuardFake;
 
 /**
- * @method static \Mounir\RuntimeGuard\GuardManager register(GuardInterface $guard)
- * @method static \Mounir\RuntimeGuard\GuardManager registerClass(string $guardClass)
+ * @method static \M9nx\RuntimeGuard\GuardManager register(GuardInterface $guard)
+ * @method static \M9nx\RuntimeGuard\GuardManager registerClass(string $guardClass)
  * @method static GuardInterface|null get(string $name)
  * @method static bool has(string $name)
  * @method static array<string, GuardInterface> all()
@@ -25,12 +25,12 @@ use Mounir\RuntimeGuard\Testing\RuntimeGuardFake;
  * @method static bool isEnabled()
  * @method static array getConfig()
  * @method static array getStats()
- * @method static \Mounir\RuntimeGuard\FeatureFlags\FeatureFlagManager getFeatureFlags()
- * @method static \Mounir\RuntimeGuard\Correlation\CorrelationEngine|null getCorrelationEngine()
- * @method static \Mounir\RuntimeGuard\Correlation\ProgressiveEnforcement|null getProgressiveEnforcement()
- * @method static \Mounir\RuntimeGuard\Pipeline\GuardPipeline|null getPipeline()
+ * @method static \M9nx\RuntimeGuard\FeatureFlags\FeatureFlagManager getFeatureFlags()
+ * @method static \M9nx\RuntimeGuard\Correlation\CorrelationEngine|null getCorrelationEngine()
+ * @method static \M9nx\RuntimeGuard\Correlation\ProgressiveEnforcement|null getProgressiveEnforcement()
+ * @method static \M9nx\RuntimeGuard\Pipeline\GuardPipeline|null getPipeline()
  *
- * @see \Mounir\RuntimeGuard\GuardManager
+ * @see \M9nx\RuntimeGuard\GuardManager
  */
 class RuntimeGuard extends Facade
 {

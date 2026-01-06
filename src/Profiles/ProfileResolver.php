@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Profiles;
+namespace M9nx\RuntimeGuard\Profiles;
 
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 
 /**
  * Resolves which guard profile applies to a given context.

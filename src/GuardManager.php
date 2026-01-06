@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard;
+namespace M9nx\RuntimeGuard;
 
-use Mounir\RuntimeGuard\Contracts\BootableGuard;
-use Mounir\RuntimeGuard\Contracts\GuardInterface;
-use Mounir\RuntimeGuard\Contracts\GuardManagerInterface;
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ReporterInterface;
-use Mounir\RuntimeGuard\Contracts\ResponseMode;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
-use Mounir\RuntimeGuard\Correlation\CorrelationEngine;
-use Mounir\RuntimeGuard\Correlation\ProgressiveEnforcement;
-use Mounir\RuntimeGuard\Exceptions\GuardNotFoundException;
-use Mounir\RuntimeGuard\FeatureFlags\FeatureFlagManager;
-use Mounir\RuntimeGuard\Pipeline\GuardPipeline;
-use Mounir\RuntimeGuard\Pipeline\PipelineResult;
-use Mounir\RuntimeGuard\Profiles\GuardProfile;
-use Mounir\RuntimeGuard\Profiles\ProfileResolver;
-use Mounir\RuntimeGuard\Support\DeduplicationCache;
-use Mounir\RuntimeGuard\Support\InputLimiter;
-use Mounir\RuntimeGuard\Support\InspectionContext;
-use Mounir\RuntimeGuard\Support\SamplingDecider;
+use M9nx\RuntimeGuard\Contracts\BootableGuard;
+use M9nx\RuntimeGuard\Contracts\GuardInterface;
+use M9nx\RuntimeGuard\Contracts\GuardManagerInterface;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ReporterInterface;
+use M9nx\RuntimeGuard\Contracts\ResponseMode;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Correlation\CorrelationEngine;
+use M9nx\RuntimeGuard\Correlation\ProgressiveEnforcement;
+use M9nx\RuntimeGuard\Exceptions\GuardNotFoundException;
+use M9nx\RuntimeGuard\FeatureFlags\FeatureFlagManager;
+use M9nx\RuntimeGuard\Pipeline\GuardPipeline;
+use M9nx\RuntimeGuard\Pipeline\PipelineResult;
+use M9nx\RuntimeGuard\Profiles\GuardProfile;
+use M9nx\RuntimeGuard\Profiles\ProfileResolver;
+use M9nx\RuntimeGuard\Support\DeduplicationCache;
+use M9nx\RuntimeGuard\Support\InputLimiter;
+use M9nx\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Support\SamplingDecider;
 use Illuminate\Contracts\Container\Container;
 
 /**

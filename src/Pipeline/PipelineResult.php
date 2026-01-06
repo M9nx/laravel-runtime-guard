@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Pipeline;
+namespace M9nx\RuntimeGuard\Pipeline;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
 
 /**
  * Aggregates multiple guard results into a summary.
@@ -142,7 +142,7 @@ final readonly class PipelineResult
             'guards_executed' => $this->guardsExecuted,
             'guards_skipped' => $this->guardsSkipped,
             'results' => array_map(
-                fn (GuardResultInterface $r) => $r instanceof \Mounir\RuntimeGuard\Support\GuardResult
+                fn (GuardResultInterface $r) => $r instanceof \M9nx\RuntimeGuard\Support\GuardResult
                     ? $r->toArray()
                     : [
                         'guard' => $r->getGuardName(),

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\DevTools;
+namespace M9nx\RuntimeGuard\DevTools;
 
-use Mounir\RuntimeGuard\Contracts\GuardInterface;
-use Mounir\RuntimeGuard\Context\RuntimeContext;
+use M9nx\RuntimeGuard\Contracts\GuardInterface;
+use M9nx\RuntimeGuard\Context\RuntimeContext;
 use Illuminate\Http\Request;
 
 /**

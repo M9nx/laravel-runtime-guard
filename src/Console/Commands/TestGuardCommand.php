@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Console\Commands;
+namespace M9nx\RuntimeGuard\Console\Commands;
 
 use Illuminate\Console\Command;
-use Mounir\RuntimeGuard\GuardManager;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\GuardManager;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 
 /**
  * Test a guard with sample input.
@@ -45,7 +45,7 @@ class TestGuardCommand extends Command
         $result = $manager->inspectWith($guardName, $input, $context->getAllMeta());
 
         if ($this->option('json')) {
-            if ($result instanceof \Mounir\RuntimeGuard\Support\GuardResult) {
+            if ($result instanceof \M9nx\RuntimeGuard\Support\GuardResult) {
                 $this->line(json_encode($result->toArray(), JSON_PRETTY_PRINT));
             } else {
                 $this->line(json_encode([

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
 
 test('threat level none does not suggest blocking', function () {
     expect(ThreatLevel::NONE->shouldBlock())->toBeFalse();

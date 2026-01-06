@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\DevTools;
+namespace M9nx\RuntimeGuard\DevTools;
 
 use Illuminate\Support\Str;
 

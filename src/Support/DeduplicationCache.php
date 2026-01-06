@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Support;
+namespace M9nx\RuntimeGuard\Support;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
 
 /**
  * In-memory LRU cache for deduplicating repeated inspections.

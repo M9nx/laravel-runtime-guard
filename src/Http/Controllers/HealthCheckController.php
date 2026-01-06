@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Http\Controllers;
+namespace M9nx\RuntimeGuard\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cache;
-use Mounir\RuntimeGuard\Performance\LazyGuardResolver;
-use Mounir\RuntimeGuard\Performance\SharedMemoryStore;
+use M9nx\RuntimeGuard\Performance\LazyGuardResolver;
+use M9nx\RuntimeGuard\Performance\SharedMemoryStore;
 
 /**
  * Health Check Controller.

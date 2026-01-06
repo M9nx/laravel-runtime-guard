@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Performance;
+namespace M9nx\RuntimeGuard\Performance;
 
-use Mounir\RuntimeGuard\Context\RuntimeContext;
+use M9nx\RuntimeGuard\Context\RuntimeContext;
 use Illuminate\Support\Facades\Cache;
 
 /**

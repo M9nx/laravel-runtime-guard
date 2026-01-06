@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Notifications;
+namespace M9nx\RuntimeGuard\Notifications;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Http;
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Support\InspectionContext;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Support\InspectionContext;
 use Psr\Log\LoggerInterface;
 
 /**

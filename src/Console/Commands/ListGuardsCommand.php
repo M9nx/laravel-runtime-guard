@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Console\Commands;
+namespace M9nx\RuntimeGuard\Console\Commands;
 
 use Illuminate\Console\Command;
-use Mounir\RuntimeGuard\GuardManager;
+use M9nx\RuntimeGuard\GuardManager;
 
 /**
  * List all registered guards and their status.

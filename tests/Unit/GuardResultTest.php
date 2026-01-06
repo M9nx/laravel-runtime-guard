@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
-use Mounir\RuntimeGuard\Support\GuardResult;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Support\GuardResult;
 
 test('pass creates passing result', function () {
     $result = GuardResult::pass('test-guard', 'All good');

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Jobs;
+namespace M9nx\RuntimeGuard\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ReporterInterface;
-use Mounir\RuntimeGuard\Support\GuardResult;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ReporterInterface;
+use M9nx\RuntimeGuard\Support\GuardResult;
 
 /**
  * Queued job for async threat reporting.
@@ -96,7 +96,7 @@ class ReportThreatJob implements ShouldQueue
 
         return GuardResult::fail(
             $this->resultData['guard_name'],
-            \Mounir\RuntimeGuard\Contracts\ThreatLevel::from($this->resultData['threat_level']),
+            \M9nx\RuntimeGuard\Contracts\ThreatLevel::from($this->resultData['threat_level']),
             $this->resultData['message'],
             $this->resultData['metadata']
         );

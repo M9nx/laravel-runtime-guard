@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Reporters;
+namespace M9nx\RuntimeGuard\Reporters;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ReporterInterface;
-use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ReporterInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
 use Psr\Log\LoggerInterface;
 
 /**

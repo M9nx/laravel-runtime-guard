@@ -2,77 +2,77 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard;
+namespace M9nx\RuntimeGuard;
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Mounir\RuntimeGuard\Advanced\HoneytokenManager;
-use Mounir\RuntimeGuard\Advanced\RuntimePolicyEngine;
-use Mounir\RuntimeGuard\Advanced\ThreatIntelFeed;
-use Mounir\RuntimeGuard\Advanced\WafRuleExporter;
-use Mounir\RuntimeGuard\Analytics\AttackFingerprinter;
-use Mounir\RuntimeGuard\Analytics\ComplianceReporter;
-use Mounir\RuntimeGuard\Analytics\GeoIpCorrelator;
-use Mounir\RuntimeGuard\Analytics\StixExporter;
-use Mounir\RuntimeGuard\Analytics\TrendAnalyzer;
-use Mounir\RuntimeGuard\Analytics\AttackChainReconstructor;
-use Mounir\RuntimeGuard\Analytics\RiskScoringEngine;
-use Mounir\RuntimeGuard\DevTools\GuardProfiler;
-use Mounir\RuntimeGuard\DevTools\RuleBuilder;
-use Mounir\RuntimeGuard\DevTools\SecurityPlayground;
-use Mounir\RuntimeGuard\DevTools\TestDataGenerator;
-use Mounir\RuntimeGuard\ML\AdaptiveThresholdManager;
-use Mounir\RuntimeGuard\ML\MLAnomalyDetector;
-use Mounir\RuntimeGuard\ML\PatternLearningEngine;
-use Mounir\RuntimeGuard\ML\ThreatClassifier;
-use Mounir\RuntimeGuard\MultiTenant\CrossTenantIntelligence;
-use Mounir\RuntimeGuard\MultiTenant\TenantIsolationManager;
-use Mounir\RuntimeGuard\MultiTenant\TenantQuotaManager;
-use Mounir\RuntimeGuard\MultiTenant\TenantRuleEngine;
-use Mounir\RuntimeGuard\Observability\AlertCorrelator;
-use Mounir\RuntimeGuard\Observability\RealTimeMetricsCollector;
-use Mounir\RuntimeGuard\Observability\SecurityScorecard;
-use Mounir\RuntimeGuard\Observability\ThreatHeatmap;
-use Mounir\RuntimeGuard\Optimizer\AsyncGuardExecutor;
-use Mounir\RuntimeGuard\Optimizer\GuardFusionOptimizer;
-use Mounir\RuntimeGuard\Optimizer\IncrementalInspector;
-use Mounir\RuntimeGuard\Optimizer\ResourcePoolManager;
-use Mounir\RuntimeGuard\Console\Commands\ListGuardsCommand;
-use Mounir\RuntimeGuard\Console\Commands\MakeGuardCommand;
-use Mounir\RuntimeGuard\Console\Commands\SecurityAuditCommand;
-use Mounir\RuntimeGuard\Console\Commands\StatusCommand;
-use Mounir\RuntimeGuard\Console\Commands\TestGuardCommand;
-use Mounir\RuntimeGuard\Console\Commands\ToggleGuardCommand;
-use Mounir\RuntimeGuard\Contracts\GuardManagerInterface;
-use Mounir\RuntimeGuard\Contracts\ReporterInterface;
-use Mounir\RuntimeGuard\Correlation\CorrelationEngine;
-use Mounir\RuntimeGuard\Correlation\ProgressiveEnforcement;
-use Mounir\RuntimeGuard\Debug\DebugExplainer;
-use Mounir\RuntimeGuard\FeatureFlags\FeatureFlagManager;
-use Mounir\RuntimeGuard\Http\Controllers\HealthCheckController;
-use Mounir\RuntimeGuard\Http\Middleware\RuntimeGuardMiddleware;
-use Mounir\RuntimeGuard\Integrations\OpenApiValidator;
-use Mounir\RuntimeGuard\Integrations\PulseIntegration;
-use Mounir\RuntimeGuard\Integrations\SiemConnector;
-use Mounir\RuntimeGuard\Integrations\TelescopeIntegration;
-use Mounir\RuntimeGuard\Notifications\WebhookDispatcher;
-use Mounir\RuntimeGuard\Performance\BloomFilter;
-use Mounir\RuntimeGuard\Performance\JitWarmer;
-use Mounir\RuntimeGuard\Performance\LazyGuardResolver;
-use Mounir\RuntimeGuard\Performance\SharedMemoryStore;
-use Mounir\RuntimeGuard\Performance\StreamingInspector;
-use Mounir\RuntimeGuard\Plugins\PluginManager;
-use Mounir\RuntimeGuard\Profiles\ProfileResolver;
-use Mounir\RuntimeGuard\Reporters\AsyncReporter;
-use Mounir\RuntimeGuard\Reporters\DatabaseReporter;
-use Mounir\RuntimeGuard\Reporters\LogReporter;
-use Mounir\RuntimeGuard\Resilience\CircuitBreaker;
-use Mounir\RuntimeGuard\Resilience\LoadShedder;
-use Mounir\RuntimeGuard\Support\RequestFingerprint;
-use Mounir\RuntimeGuard\Support\RingBuffer;
-use Mounir\RuntimeGuard\Testing\RuntimeGuardFake;
+use M9nx\RuntimeGuard\Advanced\HoneytokenManager;
+use M9nx\RuntimeGuard\Advanced\RuntimePolicyEngine;
+use M9nx\RuntimeGuard\Advanced\ThreatIntelFeed;
+use M9nx\RuntimeGuard\Advanced\WafRuleExporter;
+use M9nx\RuntimeGuard\Analytics\AttackFingerprinter;
+use M9nx\RuntimeGuard\Analytics\ComplianceReporter;
+use M9nx\RuntimeGuard\Analytics\GeoIpCorrelator;
+use M9nx\RuntimeGuard\Analytics\StixExporter;
+use M9nx\RuntimeGuard\Analytics\TrendAnalyzer;
+use M9nx\RuntimeGuard\Analytics\AttackChainReconstructor;
+use M9nx\RuntimeGuard\Analytics\RiskScoringEngine;
+use M9nx\RuntimeGuard\DevTools\GuardProfiler;
+use M9nx\RuntimeGuard\DevTools\RuleBuilder;
+use M9nx\RuntimeGuard\DevTools\SecurityPlayground;
+use M9nx\RuntimeGuard\DevTools\TestDataGenerator;
+use M9nx\RuntimeGuard\ML\AdaptiveThresholdManager;
+use M9nx\RuntimeGuard\ML\MLAnomalyDetector;
+use M9nx\RuntimeGuard\ML\PatternLearningEngine;
+use M9nx\RuntimeGuard\ML\ThreatClassifier;
+use M9nx\RuntimeGuard\MultiTenant\CrossTenantIntelligence;
+use M9nx\RuntimeGuard\MultiTenant\TenantIsolationManager;
+use M9nx\RuntimeGuard\MultiTenant\TenantQuotaManager;
+use M9nx\RuntimeGuard\MultiTenant\TenantRuleEngine;
+use M9nx\RuntimeGuard\Observability\AlertCorrelator;
+use M9nx\RuntimeGuard\Observability\RealTimeMetricsCollector;
+use M9nx\RuntimeGuard\Observability\SecurityScorecard;
+use M9nx\RuntimeGuard\Observability\ThreatHeatmap;
+use M9nx\RuntimeGuard\Optimizer\AsyncGuardExecutor;
+use M9nx\RuntimeGuard\Optimizer\GuardFusionOptimizer;
+use M9nx\RuntimeGuard\Optimizer\IncrementalInspector;
+use M9nx\RuntimeGuard\Optimizer\ResourcePoolManager;
+use M9nx\RuntimeGuard\Console\Commands\ListGuardsCommand;
+use M9nx\RuntimeGuard\Console\Commands\MakeGuardCommand;
+use M9nx\RuntimeGuard\Console\Commands\SecurityAuditCommand;
+use M9nx\RuntimeGuard\Console\Commands\StatusCommand;
+use M9nx\RuntimeGuard\Console\Commands\TestGuardCommand;
+use M9nx\RuntimeGuard\Console\Commands\ToggleGuardCommand;
+use M9nx\RuntimeGuard\Contracts\GuardManagerInterface;
+use M9nx\RuntimeGuard\Contracts\ReporterInterface;
+use M9nx\RuntimeGuard\Correlation\CorrelationEngine;
+use M9nx\RuntimeGuard\Correlation\ProgressiveEnforcement;
+use M9nx\RuntimeGuard\Debug\DebugExplainer;
+use M9nx\RuntimeGuard\FeatureFlags\FeatureFlagManager;
+use M9nx\RuntimeGuard\Http\Controllers\HealthCheckController;
+use M9nx\RuntimeGuard\Http\Middleware\RuntimeGuardMiddleware;
+use M9nx\RuntimeGuard\Integrations\OpenApiValidator;
+use M9nx\RuntimeGuard\Integrations\PulseIntegration;
+use M9nx\RuntimeGuard\Integrations\SiemConnector;
+use M9nx\RuntimeGuard\Integrations\TelescopeIntegration;
+use M9nx\RuntimeGuard\Notifications\WebhookDispatcher;
+use M9nx\RuntimeGuard\Performance\BloomFilter;
+use M9nx\RuntimeGuard\Performance\JitWarmer;
+use M9nx\RuntimeGuard\Performance\LazyGuardResolver;
+use M9nx\RuntimeGuard\Performance\SharedMemoryStore;
+use M9nx\RuntimeGuard\Performance\StreamingInspector;
+use M9nx\RuntimeGuard\Plugins\PluginManager;
+use M9nx\RuntimeGuard\Profiles\ProfileResolver;
+use M9nx\RuntimeGuard\Reporters\AsyncReporter;
+use M9nx\RuntimeGuard\Reporters\DatabaseReporter;
+use M9nx\RuntimeGuard\Reporters\LogReporter;
+use M9nx\RuntimeGuard\Resilience\CircuitBreaker;
+use M9nx\RuntimeGuard\Resilience\LoadShedder;
+use M9nx\RuntimeGuard\Support\RequestFingerprint;
+use M9nx\RuntimeGuard\Support\RingBuffer;
+use M9nx\RuntimeGuard\Testing\RuntimeGuardFake;
 
 class RuntimeGuardServiceProvider extends ServiceProvider
 {
@@ -679,27 +679,27 @@ class RuntimeGuardServiceProvider extends ServiceProvider
     protected function registerV4Guards(): void
     {
         // BehavioralFingerprintGuard
-        $this->app->singleton(\Mounir\RuntimeGuard\Guards\BehavioralFingerprintGuard::class, function ($app) {
+        $this->app->singleton(\M9nx\RuntimeGuard\Guards\BehavioralFingerprintGuard::class, function ($app) {
             $config = $app['config']->get('runtime-guard.guards.behavioral-fingerprint', []);
-            return new \Mounir\RuntimeGuard\Guards\BehavioralFingerprintGuard($config);
+            return new \M9nx\RuntimeGuard\Guards\BehavioralFingerprintGuard($config);
         });
 
         // PayloadObfuscationGuard
-        $this->app->singleton(\Mounir\RuntimeGuard\Guards\PayloadObfuscationGuard::class, function ($app) {
+        $this->app->singleton(\M9nx\RuntimeGuard\Guards\PayloadObfuscationGuard::class, function ($app) {
             $config = $app['config']->get('runtime-guard.guards.payload-obfuscation', []);
-            return new \Mounir\RuntimeGuard\Guards\PayloadObfuscationGuard($config);
+            return new \M9nx\RuntimeGuard\Guards\PayloadObfuscationGuard($config);
         });
 
         // ApiAbuseGuard
-        $this->app->singleton(\Mounir\RuntimeGuard\Guards\ApiAbuseGuard::class, function ($app) {
+        $this->app->singleton(\M9nx\RuntimeGuard\Guards\ApiAbuseGuard::class, function ($app) {
             $config = $app['config']->get('runtime-guard.guards.api-abuse', []);
-            return new \Mounir\RuntimeGuard\Guards\ApiAbuseGuard($config);
+            return new \M9nx\RuntimeGuard\Guards\ApiAbuseGuard($config);
         });
 
         // PrototypePollutionGuard
-        $this->app->singleton(\Mounir\RuntimeGuard\Guards\PrototypePollutionGuard::class, function ($app) {
+        $this->app->singleton(\M9nx\RuntimeGuard\Guards\PrototypePollutionGuard::class, function ($app) {
             $config = $app['config']->get('runtime-guard.guards.prototype-pollution', []);
-            return new \Mounir\RuntimeGuard\Guards\PrototypePollutionGuard($config);
+            return new \M9nx\RuntimeGuard\Guards\PrototypePollutionGuard($config);
         });
     }
 

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Reporters;
+namespace M9nx\RuntimeGuard\Reporters;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
-use Mounir\RuntimeGuard\Contracts\ReporterInterface;
-use Mounir\RuntimeGuard\Jobs\ReportThreatJob;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ReporterInterface;
+use M9nx\RuntimeGuard\Jobs\ReportThreatJob;
 
 /**
  * Async reporter that dispatches reports to a queue.

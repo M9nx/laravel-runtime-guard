@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Attributes;
+namespace M9nx\RuntimeGuard\Attributes;
 
 use Attribute;
 

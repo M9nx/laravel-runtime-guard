@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\FeatureFlags;
+namespace M9nx\RuntimeGuard\FeatureFlags;
 
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 

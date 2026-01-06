@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mounir\RuntimeGuard\Analytics;
+namespace M9nx\RuntimeGuard\Analytics;
 
-use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
 
 /**
  * STIX 2.1 Exporter.
