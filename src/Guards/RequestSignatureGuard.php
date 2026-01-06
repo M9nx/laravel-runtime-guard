@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace M9nx\RuntimeGuard\Guards;
 
 use M9nx\RuntimeGuard\Contracts\GuardInterface;
-use M9nx\RuntimeGuard\Context\RuntimeContext;
-use M9nx\RuntimeGuard\Results\GuardResult;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Support\GuardResult;
+use Illuminate\Http\Request;
 
 /**
  * Request Signature Validator Guard.
@@ -46,18 +48,23 @@ class RequestSignatureGuard implements GuardInterface
         $this->nonceTtl = $config['nonce_ttl'] ?? 3600;
     }
 
-    public function inspect(RuntimeContext $context): GuardResult
+    public function inspect(mixed $input, array $context = []): GuardResultInterface
     {
         if (!$this->enabled) {
             return GuardResult::pass($this->getName());
         }
 
         if (empty($this->secrets)) {
-            return GuardResult::pass($this->getName())
-                ->withMetadata(['skipped' => 'no_secrets_configured']);
+            return new GuardResult(
+                guardName: $this->getName(),
+                passed: true,
+                message: 'Skipped - no secrets configured',
+                metadata: ['skipped' => 'no_secrets_configured']
+            );
         }
 
-        $request = $context->getRequest();
+        // Get request from context or input
+        $request = $context['request'] ?? ($input instanceof Request ? $input : app('request'));
         $threats = [];
         $metadata = [];
 
@@ -66,8 +73,12 @@ class RequestSignatureGuard implements GuardInterface
 
         if (!$signature) {
             // No signature provided - might be optional
-            return GuardResult::pass($this->getName())
-                ->withMetadata(['signature_present' => false]);
+            return new GuardResult(
+                guardName: $this->getName(),
+                passed: true,
+                message: 'No signature present',
+                metadata: ['signature_present' => false]
+            );
         }
 
         $metadata['signature_present'] = true;
@@ -98,12 +109,41 @@ class RequestSignatureGuard implements GuardInterface
         $metadata['signature_validation'] = $signatureResult;
 
         if (!empty($threats)) {
-            return GuardResult::fail($this->getName(), $threats)
-                ->withMetadata($metadata);
+            return GuardResult::fail(
+                $this->getName(),
+                $this->getHighestSeverity($threats),
+                'Request signature validation failed',
+                ['threats' => $threats, ...$metadata]
+            );
         }
 
-        return GuardResult::pass($this->getName())
-            ->withMetadata($metadata);
+        return new GuardResult(
+            guardName: $this->getName(),
+            passed: true,
+            message: 'Request signature valid',
+            metadata: $metadata
+        );
+    }
+
+    /**
+     * Determine the highest severity from threats.
+     */
+    private function getHighestSeverity(array $threats): ThreatLevel
+    {
+        $severityOrder = ['critical' => 4, 'high' => 3, 'medium' => 2, 'low' => 1];
+        $highest = 0;
+
+        foreach ($threats as $threat) {
+            $severity = $threat['severity'] ?? 'low';
+            $highest = max($highest, $severityOrder[$severity] ?? 1);
+        }
+
+        return match ($highest) {
+            4 => ThreatLevel::CRITICAL,
+            3 => ThreatLevel::HIGH,
+            2 => ThreatLevel::MEDIUM,
+            default => ThreatLevel::LOW,
+        };
     }
 
     /**

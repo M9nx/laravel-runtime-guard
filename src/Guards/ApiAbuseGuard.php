@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace M9nx\RuntimeGuard\Guards;
 
 use M9nx\RuntimeGuard\Contracts\GuardInterface;
-use M9nx\RuntimeGuard\Context\RuntimeContext;
-use M9nx\RuntimeGuard\Results\GuardResult;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Support\GuardResult;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -47,18 +49,19 @@ class ApiAbuseGuard implements GuardInterface
         ];
     }
 
-    public function inspect(RuntimeContext $context): GuardResult
+    public function inspect(mixed $input, array $context = []): GuardResultInterface
     {
         if (!$this->enabled) {
             return GuardResult::pass($this->getName());
         }
 
-        $request = $context->getRequest();
+        // Get request from context or input
+        $request = $context['request'] ?? ($input instanceof Request ? $input : app('request'));
         $threats = [];
         $metadata = [];
 
         // Check for enumeration attacks
-        $enumerationResult = $this->detectEnumeration($request, $context);
+        $enumerationResult = $this->detectEnumeration($request);
         if ($enumerationResult) {
             $threats[] = $enumerationResult;
         }
@@ -97,18 +100,47 @@ class ApiAbuseGuard implements GuardInterface
         $metadata['is_graphql'] = $this->isGraphQLRequest($request);
 
         if (!empty($threats)) {
-            return GuardResult::fail($this->getName(), $threats)
-                ->withMetadata($metadata);
+            return GuardResult::fail(
+                $this->getName(),
+                $this->getHighestSeverity($threats),
+                'API abuse detected',
+                ['threats' => $threats, ...$metadata]
+            );
         }
 
-        return GuardResult::pass($this->getName())
-            ->withMetadata($metadata);
+        return new GuardResult(
+            guardName: $this->getName(),
+            passed: true,
+            message: 'No API abuse detected',
+            metadata: $metadata
+        );
+    }
+
+    /**
+     * Determine the highest severity from threats.
+     */
+    private function getHighestSeverity(array $threats): ThreatLevel
+    {
+        $severityOrder = ['critical' => 4, 'high' => 3, 'medium' => 2, 'low' => 1];
+        $highest = 0;
+
+        foreach ($threats as $threat) {
+            $severity = $threat['severity'] ?? 'low';
+            $highest = max($highest, $severityOrder[$severity] ?? 1);
+        }
+
+        return match ($highest) {
+            4 => ThreatLevel::CRITICAL,
+            3 => ThreatLevel::HIGH,
+            2 => ThreatLevel::MEDIUM,
+            default => ThreatLevel::LOW,
+        };
     }
 
     /**
      * Detect enumeration attacks.
      */
-    private function detectEnumeration(object $request, RuntimeContext $context): ?array
+    private function detectEnumeration(object $request): ?array
     {
         $ip = $request->ip();
         $path = $request->path();

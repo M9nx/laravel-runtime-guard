@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace M9nx\RuntimeGuard\Guards;
 
 use M9nx\RuntimeGuard\Contracts\GuardInterface;
-use M9nx\RuntimeGuard\Context\RuntimeContext;
-use M9nx\RuntimeGuard\Results\GuardResult;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Support\GuardResult;
+use Illuminate\Http\Request;
 
 /**
  * Behavioral Fingerprint Guard.
@@ -41,13 +43,14 @@ class BehavioralFingerprintGuard implements GuardInterface
         $this->cache = $config['cache'] ?? null;
     }
 
-    public function inspect(RuntimeContext $context): GuardResult
+    public function inspect(mixed $input, array $context = []): GuardResultInterface
     {
         if (!$this->enabled) {
             return GuardResult::pass($this->getName());
         }
 
-        $request = $context->getRequest();
+        // Get request from context or input
+        $request = $context['request'] ?? ($input instanceof Request ? $input : app('request'));
         $threats = [];
         $metadata = [];
 
@@ -56,8 +59,12 @@ class BehavioralFingerprintGuard implements GuardInterface
         $metadata['behavior_data_present'] = !empty($behaviorData);
 
         if (empty($behaviorData)) {
-            return GuardResult::pass($this->getName())
-                ->withMetadata($metadata);
+            return new GuardResult(
+                guardName: $this->getName(),
+                passed: true,
+                message: 'No behavior data to analyze',
+                metadata: $metadata
+            );
         }
 
         // Get stored fingerprint for this session/user
@@ -98,12 +105,41 @@ class BehavioralFingerprintGuard implements GuardInterface
         }
 
         if (!empty($threats)) {
-            return GuardResult::fail($this->getName(), $threats)
-                ->withMetadata($metadata);
+            return GuardResult::fail(
+                $this->getName(),
+                $this->getHighestSeverity($threats),
+                'Behavioral fingerprint anomaly detected',
+                ['threats' => $threats, ...$metadata]
+            );
         }
 
-        return GuardResult::pass($this->getName())
-            ->withMetadata($metadata);
+        return new GuardResult(
+            guardName: $this->getName(),
+            passed: true,
+            message: 'No behavioral anomaly detected',
+            metadata: $metadata
+        );
+    }
+
+    /**
+     * Determine the highest severity from threats.
+     */
+    private function getHighestSeverity(array $threats): ThreatLevel
+    {
+        $severityOrder = ['critical' => 4, 'high' => 3, 'medium' => 2, 'low' => 1];
+        $highest = 0;
+
+        foreach ($threats as $threat) {
+            $severity = $threat['severity'] ?? 'low';
+            $highest = max($highest, $severityOrder[$severity] ?? 1);
+        }
+
+        return match ($highest) {
+            4 => ThreatLevel::CRITICAL,
+            3 => ThreatLevel::HIGH,
+            2 => ThreatLevel::MEDIUM,
+            default => ThreatLevel::LOW,
+        };
     }
 
     /**
