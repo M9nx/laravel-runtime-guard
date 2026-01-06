@@ -40,7 +40,7 @@ use M9nx\RuntimeGuard\Optimizer\GuardFusionOptimizer;
 use M9nx\RuntimeGuard\Optimizer\IncrementalInspector;
 use M9nx\RuntimeGuard\Optimizer\ResourcePoolManager;
 use M9nx\RuntimeGuard\Console\Commands\ListGuardsCommand;
-use M9nx\RuntimeGuard\Console\Commands\MakeGuardCommand;
+use M9nx\RuntimeGuard\Commands\MakeGuardCommand;
 use M9nx\RuntimeGuard\Console\Commands\SecurityAuditCommand;
 use M9nx\RuntimeGuard\Console\Commands\StatusCommand;
 use M9nx\RuntimeGuard\Console\Commands\TestGuardCommand;
