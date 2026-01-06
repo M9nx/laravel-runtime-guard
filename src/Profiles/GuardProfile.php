@@ -30,9 +30,17 @@ final readonly class GuardProfile
      */
     public static function fromConfig(string $name, array $config): self
     {
+        // Handle guards configuration - can be '*' for all guards or an array
+        $guards = $config['guards'] ?? [];
+        if ($guards === '*') {
+            $guards = []; // Empty array means all guards
+        } elseif (!is_array($guards)) {
+            $guards = [$guards];
+        }
+
         return new self(
             name: $name,
-            guards: $config['guards'] ?? [],
+            guards: $guards,
             mode: ResponseMode::tryFrom($config['mode'] ?? 'log') ?? ResponseMode::LOG,
             threshold: ThreatLevel::tryFrom($config['threshold'] ?? 'high') ?? ThreatLevel::HIGH,
             enabled: $config['enabled'] ?? true,
