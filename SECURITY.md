@@ -4,13 +4,16 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x     | :white_check_mark: |
+| 4.x     | :white_check_mark: |
+| 3.x     | :white_check_mark: |
+| 2.x     | Security fixes only |
+| 1.x     | :x: |
 
 ## Reporting a Vulnerability
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-Instead, please send an email to security@example.com with:
+Instead, please report via [GitHub Security Advisories](https://github.com/M9nx/laravel-runtime-guard/security/advisories/new) or email with:
 
 - Description of the vulnerability
 - Steps to reproduce
