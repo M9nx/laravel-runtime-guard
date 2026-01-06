@@ -168,7 +168,7 @@ class GuardManager implements GuardManagerInterface
 
         $this->featureFlags = FeatureFlagManager::fromConfig(
             $this->config['feature_flags'] ?? [],
-            $this->container->bound('cache') ? $this->container->make('cache') : null
+            $this->container->bound('cache') ? $this->container->make('cache')->store() : null
         );
     }
 
