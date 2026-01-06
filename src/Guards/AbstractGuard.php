@@ -211,10 +211,30 @@ abstract class AbstractGuard implements GuardInterface, TieredGuard, ContextAwar
     /**
      * {@inheritdoc}
      */
-    public function deepInspect(mixed $input, InspectionContext $context): GuardResultInterface
+    public function deepInspection(mixed $input, InspectionContext $context): GuardResultInterface
     {
         // Full inspection with all patterns and analysis
         return $this->performInspection($input, $context->toArray());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deepInspect(mixed $input, InspectionContext $context): GuardResultInterface
+    {
+        // Alias for deepInspection for backward compatibility
+        return $this->deepInspection($input, $context);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function appliesTo(InspectionContext $context): bool
+    {
+        // Default: check if this guard is excluded for the route
+        $excludedGuards = $context->meta('excluded_guards', []);
+
+        return !in_array($this->getName(), $excludedGuards, true);
     }
 
     /**
@@ -227,13 +247,11 @@ abstract class AbstractGuard implements GuardInterface, TieredGuard, ContextAwar
 
     /**
      * {@inheritdoc}
+     * @deprecated Use appliesTo() instead
      */
     public function shouldSkipContext(InspectionContext $context): bool
     {
-        // Default: check if this guard is excluded for the route
-        $excludedGuards = $context->meta('excluded_guards', []);
-
-        return in_array($this->getName(), $excludedGuards, true);
+        return !$this->appliesTo($context);
     }
 
     /**
