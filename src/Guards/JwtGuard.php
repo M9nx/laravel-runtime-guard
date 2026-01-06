@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace M9nx\RuntimeGuard\Guards;
 
 use M9nx\RuntimeGuard\Contracts\GuardInterface;
-use M9nx\RuntimeGuard\Context\RuntimeContext;
-use M9nx\RuntimeGuard\Results\GuardResult;
+use M9nx\RuntimeGuard\Contracts\GuardResultInterface;
+use M9nx\RuntimeGuard\Contracts\ThreatLevel;
+use M9nx\RuntimeGuard\Support\GuardResult;
+use Illuminate\Http\Request;
 
 /**
  * JWT/Token Abuse Guard.
@@ -45,13 +47,15 @@ class JwtGuard implements GuardInterface
         $this->trustedIssuers = $config['trusted_issuers'] ?? [];
     }
 
-    public function inspect(RuntimeContext $context): GuardResult
+    public function inspect(mixed $input, array $context = []): GuardResultInterface
     {
         if (!$this->enabled) {
             return GuardResult::pass($this->getName());
         }
 
-        $request = $context->getRequest();
+        // Get request from context or try to resolve it
+        $request = $context['request'] ?? ($input instanceof Request ? $input : app('request'));
+        
         $threats = [];
         $metadata = [];
 
@@ -59,8 +63,12 @@ class JwtGuard implements GuardInterface
         $tokens = $this->extractTokens($request);
 
         if (empty($tokens)) {
-            return GuardResult::pass($this->getName())
-                ->withMetadata(['tokens_found' => 0]);
+            return new GuardResult(
+                guardName: $this->getName(),
+                passed: true,
+                message: 'No JWT tokens found',
+                metadata: ['tokens_found' => 0]
+            );
         }
 
         $metadata['tokens_found'] = count($tokens);
@@ -71,12 +79,42 @@ class JwtGuard implements GuardInterface
         }
 
         if (!empty($threats)) {
-            return GuardResult::fail($this->getName(), $threats)
-                ->withMetadata($metadata);
+            $highestSeverity = $this->getHighestSeverity($threats);
+            return GuardResult::fail(
+                $this->getName(),
+                $highestSeverity,
+                'JWT security threats detected',
+                ['threats' => $threats, ...$metadata]
+            );
         }
 
-        return GuardResult::pass($this->getName())
-            ->withMetadata($metadata);
+        return new GuardResult(
+            guardName: $this->getName(),
+            passed: true,
+            message: 'No threat detected',
+            metadata: $metadata
+        );
+    }
+
+    /**
+     * Determine the highest severity from threats.
+     */
+    private function getHighestSeverity(array $threats): ThreatLevel
+    {
+        $severityOrder = ['critical' => 4, 'high' => 3, 'medium' => 2, 'low' => 1];
+        $highest = 0;
+
+        foreach ($threats as $threat) {
+            $severity = $threat['severity'] ?? 'low';
+            $highest = max($highest, $severityOrder[$severity] ?? 1);
+        }
+
+        return match ($highest) {
+            4 => ThreatLevel::CRITICAL,
+            3 => ThreatLevel::HIGH,
+            2 => ThreatLevel::MEDIUM,
+            default => ThreatLevel::LOW,
+        };
     }
 
     /**
