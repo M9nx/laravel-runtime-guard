@@ -1,6 +1,6 @@
 {
     "name": "m9nx/laravel-runtime-guard",
-    "version": "4.0.0",
+    "version": "1.0.0",
     "description": "A security-focused runtime monitoring and guard layer for Laravel applications",
     "keywords": [
         "laravel",
