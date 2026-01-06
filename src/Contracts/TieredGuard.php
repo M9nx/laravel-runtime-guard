@@ -18,15 +18,15 @@ interface TieredGuard extends GuardInterface
     /**
      * Perform a quick, cheap scan to detect obvious threats.
      *
-     * Return true if the input is suspicious and warrants deep inspection.
-     * Return false if the input appears clean.
+     * Return a GuardResultInterface if an obvious threat is found.
+     * Return null if the input appears clean or needs deeper inspection.
      */
-    public function quickScan(mixed $input, InspectionContext $context): bool;
+    public function quickScan(mixed $input, InspectionContext $context): ?GuardResultInterface;
 
     /**
      * Perform deep inspection on suspicious input.
      *
-     * Only called if quickScan() returns true.
+     * Only called if quickScan() returns null.
      */
     public function deepInspection(mixed $input, InspectionContext $context): GuardResultInterface;
 }
