@@ -1,8 +1,8 @@
 # Laravel RuntimeGuard
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/m9nx/laravel-runtime-guard.svg?style=flat-square)](https://packagist.org/packages/m9nx/laravel-runtime-guard)
-[![Total Downloads](https://img.shields.io/packagist/dt/m9nx/laravel-runtime-guard.svg?style=flat-square)](https://packagist.org/packages/m9nx/laravel-runtime-guard)
-[![License](https://img.shields.io/packagist/l/m9nx/laravel-runtime-guard.svg?style=flat-square)](LICENSE)
+![Packagist](https://img.shields.io/packagist/v/m9nx/laravel-runtime-guard)
+![Downloads](https://img.shields.io/packagist/dt/m9nx/laravel-runtime-guard)
+![License](https://img.shields.io/github/license/M9nx/laravel-runtime-guard)
 
 **Enterprise-grade runtime security inspection for Laravel applications.**
 
@@ -12,19 +12,28 @@ RuntimeGuard provides a comprehensive, extensible framework for runtime security
 
 ## Table of Contents
 
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Configuration](#configuration)
-- [Security Guards](#security-guards)
-- [Middleware Usage](#middleware-usage)
-- [Artisan Commands](#artisan-commands)
-- [Testing](#testing)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [Security](#security)
-- [License](#license)
+- [Laravel RuntimeGuard](#laravel-runtimeguard)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+    - [Security Guards](#security-guards)
+    - [Performance](#performance)
+    - [Enterprise Features](#enterprise-features)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+    - [Basic Usage](#basic-usage)
+    - [Controller Trait](#controller-trait)
+    - [PHP Attributes](#php-attributes)
+  - [Configuration](#configuration)
+  - [Security Guards](#security-guards-1)
+  - [Middleware Usage](#middleware-usage)
+  - [Artisan Commands](#artisan-commands)
+  - [Testing](#testing)
+  - [Documentation](#documentation)
+  - [Contributing](#contributing)
+  - [Security](#security)
+  - [Credits](#credits)
+  - [License](#license)
 
 ---
 
