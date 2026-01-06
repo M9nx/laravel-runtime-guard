@@ -61,6 +61,23 @@ class SessionIntegrityGuard extends AbstractGuard implements ContextAwareGuard
     }
 
     /**
+     * Get the guard name.
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Perform inspection on input.
+     */
+    protected function performInspection(mixed $input, array $context = []): GuardResultInterface
+    {
+        $inspectionContext = InspectionContext::forInput($input, $context);
+        return $this->deepInspection($input, $inspectionContext);
+    }
+
+    /**
      * Quick scan for obvious session issues.
      */
     public function quickScan(mixed $input, InspectionContext $context): ?GuardResultInterface
