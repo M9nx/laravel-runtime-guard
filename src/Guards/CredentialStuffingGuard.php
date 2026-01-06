@@ -79,24 +79,29 @@ class CredentialStuffingGuard extends AbstractGuard implements ContextAwareGuard
     /**
      * Quick scan for obvious stuffing indicators.
      */
-    public function quickScan(mixed $input, InspectionContext $context): bool
+    public function quickScan(mixed $input, InspectionContext $context): ?GuardResultInterface
     {
         if (!$this->cache) {
-            return false;
+            return null;
         }
 
         $ip = $context->ip();
         if (!$ip) {
-            return false;
+            return null;
         }
 
         // Check if IP is already flagged
         $ipKey = $this->cachePrefix . 'flagged:ip:' . md5($ip);
         if ($this->cache->get($ipKey)) {
-            return true;
+            return GuardResult::threat(
+                $this->name,
+                ThreatLevel::HIGH,
+                'IP flagged for credential stuffing',
+                ['ip' => $this->maskIp($ip)]
+            );
         }
 
-        return false;
+        return null;
     }
 
     /**

@@ -63,20 +63,29 @@ class SessionIntegrityGuard extends AbstractGuard implements ContextAwareGuard
     /**
      * Quick scan for obvious session issues.
      */
-    public function quickScan(mixed $input, InspectionContext $context): bool
+    public function quickScan(mixed $input, InspectionContext $context): ?GuardResultInterface
     {
         if (!$this->cache) {
-            return false;
+            return null;
         }
 
         $sessionId = $context->sessionId();
         if (!$sessionId) {
-            return false;
+            return null;
         }
 
         // Check if session is flagged
         $flagKey = $this->cachePrefix . 'flagged:' . md5($sessionId);
-        return (bool) $this->cache->get($flagKey);
+        if ($this->cache->get($flagKey)) {
+            return GuardResult::threat(
+                $this->name,
+                ThreatLevel::HIGH,
+                'Session flagged for integrity issues',
+                ['session_id' => substr($sessionId, 0, 8) . '...']
+            );
+        }
+
+        return null;
     }
 
     /**
