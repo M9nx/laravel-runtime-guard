@@ -1,0 +1,67 @@
+{
+    "name": "mounir/laravel-runtime-guard",
+    "description": "A security-focused runtime monitoring and guard layer for Laravel applications",
+    "keywords": [
+        "laravel",
+        "security",
+        "runtime",
+        "guard",
+        "monitoring",
+        "sql-injection",
+        "xss",
+        "protection"
+    ],
+    "homepage": "https://github.com/mounir/laravel-runtime-guard",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Mounir",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/contracts": "^10.0|^11.0",
+        "illuminate/support": "^10.0|^11.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0",
+        "pestphp/pest": "^2.0",
+        "phpstan/phpstan": "^1.10",
+        "laravel/pint": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mounir\\RuntimeGuard\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mounir\\RuntimeGuard\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "analyse": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mounir\\RuntimeGuard\\RuntimeGuardServiceProvider"
+            ],
+            "aliases": {
+                "RuntimeGuard": "Mounir\\RuntimeGuard\\Facades\\RuntimeGuard"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

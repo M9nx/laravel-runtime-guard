@@ -1,0 +1,125 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Mounir\RuntimeGuard\Guards\AbstractGuard;
+use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
+use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+
+/**
+ * Custom guard for detecting {{ guardName }} threats.
+ */
+class {{ class }} extends AbstractGuard
+{
+    /**
+     * Quick patterns for fast pre-screening.
+     */
+    protected array $quickPatterns = ['basic_patterns'];
+
+    /**
+     * Get the unique name for this guard.
+     */
+    public function getName(): string
+    {
+        return '{{ guardName }}';
+    }
+
+    /**
+     * Define the patterns to match against.
+     *
+     * @return array<string, array<string>>
+     */
+    protected function getPatterns(): array
+    {
+        return [
+            'basic_patterns' => [
+                // Add your detection patterns here
+                // 'pattern_to_match',
+            ],
+            'advanced_patterns' => [
+                // More complex patterns
+            ],
+        ];
+    }
+
+    /**
+     * Perform the inspection logic.
+     */
+    protected function performInspection(mixed $input, array $context = []): GuardResultInterface
+    {
+        // Handle string input
+        if (is_string($input)) {
+            return $this->inspectString($input, $context);
+        }
+
+        // Handle array input
+        if (is_array($input)) {
+            return $this->inspectArray($input, $context);
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Inspect string input.
+     */
+    protected function inspectString(string $input, array $context): GuardResultInterface
+    {
+        // Use compiled patterns for matching
+        foreach ($this->compiledPatterns as $patternName => $pattern) {
+            if (preg_match($pattern, $input, $matches)) {
+                return $this->threat(
+                    "{{ guardName }} threat detected: {$patternName}",
+                    $this->determineThreatLevel($patternName),
+                    [
+                        'pattern' => $patternName,
+                        'matched' => $matches[0] ?? '',
+                        'input_sample' => substr($input, 0, 200),
+                    ]
+                );
+            }
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Inspect array input recursively.
+     */
+    protected function inspectArray(array $input, array $context, int $depth = 0): GuardResultInterface
+    {
+        if ($depth > 10) {
+            return $this->pass();
+        }
+
+        foreach ($input as $key => $value) {
+            if (is_string($value)) {
+                $result = $this->inspectString($value, $context);
+                if ($result->failed()) {
+                    return $result;
+                }
+            } elseif (is_array($value)) {
+                $result = $this->inspectArray($value, $context, $depth + 1);
+                if ($result->failed()) {
+                    return $result;
+                }
+            }
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Determine threat level based on pattern name.
+     */
+    protected function determineThreatLevel(string $patternName): ThreatLevel
+    {
+        return match ($patternName) {
+            'basic_patterns' => ThreatLevel::MEDIUM,
+            'advanced_patterns' => ThreatLevel::HIGH,
+            default => ThreatLevel::LOW,
+        };
+    }
+}

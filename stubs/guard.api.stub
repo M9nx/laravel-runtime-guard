@@ -1,0 +1,160 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Mounir\RuntimeGuard\Guards\AbstractGuard;
+use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
+use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+
+/**
+ * API-focused guard for {{ guardName }}.
+ *
+ * Designed for inspecting API requests and responses.
+ */
+class {{ class }} extends AbstractGuard
+{
+    protected array $quickPatterns = ['request_patterns'];
+
+    public function getName(): string
+    {
+        return '{{ guardName }}';
+    }
+
+    protected function getPatterns(): array
+    {
+        return [
+            'request_patterns' => [
+                // Request-specific patterns
+            ],
+            'response_patterns' => [
+                // Response-specific patterns
+            ],
+            'header_patterns' => [
+                // Header-specific patterns
+            ],
+        ];
+    }
+
+    protected function performInspection(mixed $input, array $context = []): GuardResultInterface
+    {
+        // Determine inspection type from context
+        $inspectionType = $context['type'] ?? 'request';
+
+        return match ($inspectionType) {
+            'request' => $this->inspectRequest($input, $context),
+            'response' => $this->inspectResponse($input, $context),
+            'headers' => $this->inspectHeaders($input, $context),
+            default => $this->inspectGeneric($input, $context),
+        };
+    }
+
+    /**
+     * Inspect incoming API request.
+     */
+    protected function inspectRequest(mixed $input, array $context): GuardResultInterface
+    {
+        if (is_string($input)) {
+            return $this->matchPatterns($input, 'request_patterns');
+        }
+
+        if (is_array($input)) {
+            // Inspect request body
+            $json = json_encode($input);
+            if ($json) {
+                return $this->matchPatterns($json, 'request_patterns');
+            }
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Inspect API response.
+     */
+    protected function inspectResponse(mixed $input, array $context): GuardResultInterface
+    {
+        if (is_string($input)) {
+            return $this->matchPatterns($input, 'response_patterns');
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Inspect HTTP headers.
+     */
+    protected function inspectHeaders(mixed $input, array $context): GuardResultInterface
+    {
+        if (!is_array($input)) {
+            return $this->pass();
+        }
+
+        foreach ($input as $name => $value) {
+            $headerString = "{$name}: {$value}";
+            $result = $this->matchPatterns($headerString, 'header_patterns');
+            if ($result->failed()) {
+                return $result;
+            }
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Generic inspection for unknown types.
+     */
+    protected function inspectGeneric(mixed $input, array $context): GuardResultInterface
+    {
+        if (is_string($input)) {
+            foreach ($this->compiledPatterns as $name => $pattern) {
+                if (preg_match($pattern, $input, $matches)) {
+                    return $this->threat(
+                        "{{ guardName }} API threat detected",
+                        ThreatLevel::HIGH,
+                        [
+                            'pattern' => $name,
+                            'matched' => $matches[0] ?? '',
+                        ]
+                    );
+                }
+            }
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Match input against a specific pattern group.
+     */
+    protected function matchPatterns(string $input, string $group): GuardResultInterface
+    {
+        if (!isset($this->compiledPatterns[$group])) {
+            return $this->pass();
+        }
+
+        if (preg_match($this->compiledPatterns[$group], $input, $matches)) {
+            return $this->threat(
+                "{{ guardName }} threat in {$group}",
+                ThreatLevel::HIGH,
+                [
+                    'group' => $group,
+                    'matched' => $matches[0] ?? '',
+                    'input_sample' => substr($input, 0, 200),
+                ]
+            );
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Check rate limiting (optional).
+     */
+    protected function checkRateLimit(array $context): ?GuardResultInterface
+    {
+        // Implement rate limiting logic if needed
+        return null;
+    }
+}

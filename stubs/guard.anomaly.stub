@@ -1,0 +1,194 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Mounir\RuntimeGuard\Guards\AbstractGuard;
+use Mounir\RuntimeGuard\Contracts\GuardResultInterface;
+use Mounir\RuntimeGuard\Contracts\ThreatLevel;
+use Illuminate\Support\Facades\Cache;
+
+/**
+ * Anomaly detection guard for {{ guardName }}.
+ *
+ * Uses statistical analysis to detect abnormal behavior.
+ */
+class {{ class }} extends AbstractGuard
+{
+    protected const CACHE_PREFIX = 'rtg_{{ guardName }}:';
+    protected const BASELINE_WINDOW = 3600;
+    protected const MIN_SAMPLES = 10;
+
+    protected float $deviationThreshold = 3.0;
+    protected bool $learningMode = false;
+
+    public function getName(): string
+    {
+        return '{{ guardName }}';
+    }
+
+    public function onBoot(): void
+    {
+        parent::onBoot();
+
+        $this->deviationThreshold = (float) config(
+            'runtime-guard.guards.{{ guardName }}.deviation_threshold',
+            3.0
+        );
+        $this->learningMode = (bool) config(
+            'runtime-guard.guards.{{ guardName }}.learning_mode',
+            false
+        );
+    }
+
+    protected function getPatterns(): array
+    {
+        // Anomaly detection doesn't use patterns
+        return [];
+    }
+
+    protected function performInspection(mixed $input, array $context = []): GuardResultInterface
+    {
+        $metrics = $this->collectMetrics($input, $context);
+        $anomalies = [];
+
+        foreach ($metrics as $metric => $value) {
+            $baseline = $this->getBaseline($metric);
+            $this->updateBaseline($metric, $value);
+
+            if ($this->learningMode || $baseline['count'] < self::MIN_SAMPLES) {
+                continue;
+            }
+
+            $zScore = $this->calculateZScore($value, $baseline['mean'], $baseline['stddev']);
+
+            if (abs($zScore) > $this->deviationThreshold) {
+                $anomalies[] = [
+                    'metric' => $metric,
+                    'value' => $value,
+                    'mean' => $baseline['mean'],
+                    'z_score' => $zScore,
+                ];
+            }
+        }
+
+        if (!empty($anomalies)) {
+            return $this->threat(
+                '{{ guardName }} anomaly detected',
+                $this->assessThreatLevel($anomalies),
+                ['anomalies' => $anomalies]
+            );
+        }
+
+        return $this->pass();
+    }
+
+    /**
+     * Collect metrics from input.
+     * Override this method to define your metrics.
+     */
+    protected function collectMetrics(mixed $input, array $context): array
+    {
+        $metrics = [];
+
+        if (is_string($input)) {
+            $metrics['length'] = strlen($input);
+            $metrics['entropy'] = $this->calculateEntropy($input);
+        }
+
+        if (is_array($input)) {
+            $metrics['count'] = count($input);
+            $metrics['depth'] = $this->calculateDepth($input);
+        }
+
+        return $metrics;
+    }
+
+    protected function calculateEntropy(string $input): float
+    {
+        if (empty($input)) {
+            return 0.0;
+        }
+
+        $len = strlen($input);
+        $frequencies = array_count_values(str_split($input));
+        $entropy = 0.0;
+
+        foreach ($frequencies as $count) {
+            $p = $count / $len;
+            $entropy -= $p * log($p, 2);
+        }
+
+        return round($entropy, 4);
+    }
+
+    protected function calculateDepth(array $arr, int $depth = 0): int
+    {
+        if ($depth > 20) {
+            return $depth;
+        }
+
+        $maxDepth = $depth;
+        foreach ($arr as $value) {
+            if (is_array($value)) {
+                $maxDepth = max($maxDepth, $this->calculateDepth($value, $depth + 1));
+            }
+        }
+
+        return $maxDepth;
+    }
+
+    protected function getBaseline(string $metric): array
+    {
+        return Cache::get(self::CACHE_PREFIX . "baseline:{$metric}", [
+            'count' => 0,
+            'mean' => 0,
+            'stddev' => 1,
+            'sum_sq' => 0,
+        ]);
+    }
+
+    protected function updateBaseline(string $metric, float $value): void
+    {
+        $key = self::CACHE_PREFIX . "baseline:{$metric}";
+        $baseline = $this->getBaseline($metric);
+
+        $baseline['count']++;
+        $delta = $value - $baseline['mean'];
+        $baseline['mean'] += $delta / $baseline['count'];
+        $delta2 = $value - $baseline['mean'];
+        $baseline['sum_sq'] += $delta * $delta2;
+
+        if ($baseline['count'] > 1) {
+            $variance = $baseline['sum_sq'] / ($baseline['count'] - 1);
+            $baseline['stddev'] = max(sqrt($variance), 0.001);
+        }
+
+        Cache::put($key, $baseline, self::BASELINE_WINDOW);
+    }
+
+    protected function calculateZScore(float $value, float $mean, float $stddev): float
+    {
+        if ($stddev == 0) {
+            return 0;
+        }
+
+        return ($value - $mean) / $stddev;
+    }
+
+    protected function assessThreatLevel(array $anomalies): ThreatLevel
+    {
+        $maxZScore = max(array_column($anomalies, 'z_score'));
+
+        if ($maxZScore > 5) {
+            return ThreatLevel::CRITICAL;
+        }
+
+        if ($maxZScore > 4) {
+            return ThreatLevel::HIGH;
+        }
+
+        return ThreatLevel::MEDIUM;
+    }
+}
